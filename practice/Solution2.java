@@ -3,38 +3,35 @@ import java.util.Scanner;
 
 public class Solution2 {
     public static void main(String[] args) {
-        // Solution 2: Analyze 5 numbers
+        // Solution 2: Youngest (Age) and Tallest (Height) among 3 friends (Amar, Akbar, Anthony)
         
         Scanner scanner = new Scanner(System.in);
-        int[] numbers = new int[5];
+        String[] friends = {"Amar", "Akbar", "Anthony"};
+        int[] ages = new int[3];
+        double[] heights = new double[3];
         
-        System.out.println("Enter 5 numbers:");
-        for (int i = 0; i < 5; i++) {
-            numbers[i] = scanner.nextInt();
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Enter details for " + friends[i]);
+            System.out.print("Age: ");
+            ages[i] = scanner.nextInt();
+            System.out.print("Height: ");
+            heights[i] = scanner.nextDouble();
         }
         
-        for (int num : numbers) {
-            if (num > 0) {
-                System.out.print(num + " is Positive");
-                if (num % 2 == 0) {
-                    System.out.println(" and Even");
-                } else {
-                    System.out.println(" and Odd");
-                }
-            } else if (num < 0) {
-                System.out.println(num + " is Negative");
-            } else {
-                System.out.println("Number is Zero");
+        int minAgeIndex = 0;
+        int maxHeightIndex = 0;
+        
+        for (int i = 1; i < 3; i++) {
+            if (ages[i] < ages[minAgeIndex]) {
+                minAgeIndex = i;
+            }
+            if (heights[i] > heights[maxHeightIndex]) {
+                maxHeightIndex = i;
             }
         }
         
-        if (numbers[0] == numbers[numbers.length - 1]) {
-            System.out.println("First and last elements are equal.");
-        } else if (numbers[0] > numbers[numbers.length - 1]) {
-            System.out.println("First element is greater than last element.");
-        } else {
-            System.out.println("First element is less than last element.");
-        }
+        System.out.println("Youngest friend is " + friends[minAgeIndex] + " with age " + ages[minAgeIndex]);
+        System.out.println("Tallest friend is " + friends[maxHeightIndex] + " with height " + heights[maxHeightIndex]);
         scanner.close();
     }
 }

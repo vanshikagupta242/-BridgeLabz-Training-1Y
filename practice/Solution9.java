@@ -3,35 +3,52 @@ import java.util.Scanner;
 
 public class Solution9 {
     public static void main(String[] args) {
-        // Solution 9: 2D to 1D Array
+        // Solution 9: Student Grades (2D Array)
         
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter rows: ");
-        int rows = scanner.nextInt();
-        System.out.print("Enter columns: ");
-        int cols = scanner.nextInt();
+        System.out.print("Enter number of students: ");
+        int n = scanner.nextInt();
         
-        int[][] matrix = new int[rows][cols];
-        int[] array = new int[rows * cols];
+        // Rows: Students, Cols: 0=Phy, 1=Chem, 2=Math
+        double[][] marks = new double[n][3];
+        double[] percentages = new double[n];
+        String[] grades = new String[n];
         
-        System.out.println("Enter matrix elements:");
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                matrix[i][j] = scanner.nextInt();
-            }
+        for (int i = 0; i < n; i++) {
+            System.out.println("Student " + (i + 1));
+            System.out.print("Physics: ");
+            marks[i][0] = getInput(scanner);
+            System.out.print("Chemistry: ");
+            marks[i][1] = getInput(scanner);
+            System.out.print("Maths: ");
+            marks[i][2] = getInput(scanner);
+            
+            double total = marks[i][0] + marks[i][1] + marks[i][2];
+            percentages[i] = total / 3.0;
+            
+            if (percentages[i] >= 80) grades[i] = "A";
+            else if (percentages[i] >= 70) grades[i] = "B";
+            else if (percentages[i] >= 60) grades[i] = "C";
+            else if (percentages[i] >= 50) grades[i] = "D";
+            else if (percentages[i] >= 40) grades[i] = "E";
+            else grades[i] = "R";
         }
         
-        int index = 0;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                array[index++] = matrix[i][j];
-            }
-        }
-        
-        System.out.print("1D Array: ");
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
+        System.out.println("\nGrade Report:");
+        for (int i = 0; i < n; i++) {
+            System.out.printf("Student %d: Phy: %.0f, Chem: %.0f, Math: %.0f, Pct: %.2f%%, Grade: %s%n",
+                    (i + 1), marks[i][0], marks[i][1], marks[i][2], percentages[i], grades[i]);
         }
         scanner.close();
+    }
+    
+    public static double getInput(Scanner s) {
+        double val;
+        while (true) {
+            val = s.nextDouble();
+            if (val >= 0) break;
+            System.out.print("Invalid input. Enter positive marks: ");
+        }
+        return val;
     }
 }

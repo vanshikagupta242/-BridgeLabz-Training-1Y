@@ -3,20 +3,37 @@ import java.util.Scanner;
 
 public class Solution6 {
     public static void main(String[] args) {
-        // Solution 6: Mean height of 11 football players
+        // Solution 6: BMI Calculator
         
         Scanner scanner = new Scanner(System.in);
-        double[] heights = new double[11];
-        double sum = 0;
+        System.out.print("Enter number of persons: ");
+        int n = scanner.nextInt();
         
-        for (int i = 0; i < 11; i++) {
-            System.out.print("Enter height for player " + (i + 1) + ": ");
+        double[] weights = new double[n];
+        double[] heights = new double[n];
+        double[] bmis = new double[n];
+        String[] weightStatus = new String[n];
+        
+        for (int i = 0; i < n; i++) {
+            System.out.println("Person " + (i + 1));
+            System.out.print("Weight (kg): ");
+            weights[i] = scanner.nextDouble();
+            System.out.print("Height (m): ");
             heights[i] = scanner.nextDouble();
-            sum += heights[i];
+            
+            bmis[i] = weights[i] / (heights[i] * heights[i]);
+            
+            if (bmis[i] <= 18.4) weightStatus[i] = "Underweight";
+            else if (bmis[i] <= 24.9) weightStatus[i] = "Normal";
+            else if (bmis[i] <= 39.9) weightStatus[i] = "Overweight";
+            else weightStatus[i] = "Obese";
         }
         
-        double mean = sum / 11;
-        System.out.println("Mean height of the football team is: " + mean);
+        System.out.println("\nBMI Report:");
+        for (int i = 0; i < n; i++) {
+            System.out.printf("Person %d: Height: %.2f, Weight: %.2f, BMI: %.2f, Status: %s%n",
+                    (i + 1), heights[i], weights[i], bmis[i], weightStatus[i]);
+        }
         scanner.close();
     }
 }

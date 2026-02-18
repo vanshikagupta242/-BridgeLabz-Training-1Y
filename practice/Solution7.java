@@ -3,43 +3,43 @@ import java.util.Scanner;
 
 public class Solution7 {
     public static void main(String[] args) {
-        // Solution 7: Odd and Even arrays
+        // Solution 7: BMI Calculator using 2D Array
         
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a natural number: ");
-        int number = scanner.nextInt();
+        System.out.print("Enter number of persons: ");
+        int n = scanner.nextInt();
         
-        if (number <= 0) {
-            System.out.println("Error: Not a natural number");
-            System.exit(0);
+        // Rows: Persons, Cols: 0=Weight, 1=Height, 2=BMI
+        double[][] personData = new double[n][3];
+        String[] weightStatus = new String[n];
+        
+        for (int i = 0; i < n; i++) {
+            System.out.println("Person " + (i + 1));
+            
+            // Validation loop
+            do {
+                System.out.print("Weight (kg): ");
+                personData[i][0] = scanner.nextDouble();
+            } while (personData[i][0] <= 0);
+            
+            do {
+                System.out.print("Height (m): ");
+                personData[i][1] = scanner.nextDouble();
+            } while (personData[i][1] <= 0);
+            
+            personData[i][2] = personData[i][0] / (personData[i][1] * personData[i][1]);
+            
+            if (personData[i][2] <= 18.4) weightStatus[i] = "Underweight";
+            else if (personData[i][2] <= 24.9) weightStatus[i] = "Normal";
+            else if (personData[i][2] <= 39.9) weightStatus[i] = "Overweight";
+            else weightStatus[i] = "Obese";
         }
         
-        // Max possible size is number / 2 + 1 (roughly half)
-        int[] odd = new int[number / 2 + 1];
-        int[] even = new int[number / 2 + 1];
-        
-        int oddIndex = 0;
-        int evenIndex = 0;
-        
-        for (int i = 1; i <= number; i++) {
-            if (i % 2 == 0) {
-                even[evenIndex++] = i;
-            } else {
-                odd[oddIndex++] = i;
-            }
+        System.out.println("\nBMI Report:");
+        for (int i = 0; i < n; i++) {
+            System.out.printf("Person %d: Height: %.2f, Weight: %.2f, BMI: %.2f, Status: %s%n",
+                    (i + 1), personData[i][1], personData[i][0], personData[i][2], weightStatus[i]);
         }
-        
-        System.out.print("Odd numbers: ");
-        for (int i = 0; i < oddIndex; i++) {
-            System.out.print(odd[i] + " ");
-        }
-        System.out.println();
-        
-        System.out.print("Even numbers: ");
-        for (int i = 0; i < evenIndex; i++) {
-            System.out.print(even[i] + " ");
-        }
-        System.out.println();
         scanner.close();
     }
 }

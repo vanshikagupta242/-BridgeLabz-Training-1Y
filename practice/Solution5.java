@@ -3,23 +3,33 @@ import java.util.Scanner;
 
 public class Solution5 {
     public static void main(String[] args) {
-        // Solution 5: Multiplication table from 6 to 9 for a user entered number
+        // Solution 5: Reverse digits of a number using array
         
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a number: ");
-        int number = scanner.nextInt();
+        long number = scanner.nextLong();
         
-        // Array to store results for 6, 7, 8, 9 (4 elements)
-        // Hint says "from 6 to 9", let's deduce size. 6,7,8,9 -> 4 indices
-        int[] multiplicationResult = new int[4]; 
+        String numStr = String.valueOf(Math.abs(number));
+        int len = numStr.length();
+        int[] digits = new int[len];
         
-        for (int i = 6; i <= 9; i++) {
-            multiplicationResult[i - 6] = number * i;
+        long temp = Math.abs(number);
+        for (int i = 0; i < len; i++) {
+            digits[i] = (int)(temp % 10);
+            temp /= 10;
         }
         
-        for (int i = 6; i <= 9; i++) {
-            System.out.println(number + " * " + i + " = " + multiplicationResult[i - 6]);
+        // Digits are naturally extracted in reverse order (LSD first)
+        // Question asks to store digits, then reverse? 
+        // "store the digits of the number in an array and display the array in reverse order"
+        // If I store them as LSD at index 0, normal print is "reverse order" of the number.
+        // Let's print them as stored (which is reverse of original).
+        
+        System.out.print("Reversed Number: ");
+        for (int digit : digits) {
+            System.out.print(digit);
         }
+        System.out.println();
         scanner.close();
     }
 }

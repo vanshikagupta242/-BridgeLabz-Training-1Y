@@ -3,33 +3,30 @@ import java.util.Scanner;
 
 public class Solution10 {
     public static void main(String[] args) {
-        // Solution 10: FizzBuzz
+        // Solution 10: Frequency of each digit
         
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a number: ");
-        int number = scanner.nextInt();
+        long number = scanner.nextLong();
         
-        if (number < 0) {
-            System.out.println("Please enter a positive integer.");
-            return;
-        }
+        int[] frequency = new int[10];
+        long temp = Math.abs(number);
         
-        String[] results = new String[number + 1];
-        
-        for (int i = 0; i <= number; i++) {
-            if (i % 3 == 0 && i % 5 == 0) {
-                results[i] = "FizzBuzz";
-            } else if (i % 3 == 0) {
-                results[i] = "Fizz";
-            } else if (i % 5 == 0) {
-                results[i] = "Buzz";
-            } else {
-                results[i] = String.valueOf(i);
+        if (temp == 0) {
+            frequency[0]++;
+        } else {
+            while (temp > 0) {
+                int digit = (int)(temp % 10);
+                frequency[digit]++;
+                temp /= 10;
             }
         }
         
-        for (int i = 0; i <= number; i++) {
-            System.out.println("Position " + i + " = " + results[i]);
+        System.out.println("Digit Frequencies:");
+        for (int i = 0; i < 10; i++) {
+            if (frequency[i] > 0) {
+                System.out.println("Digit " + i + ": " + frequency[i]);
+            }
         }
         scanner.close();
     }
